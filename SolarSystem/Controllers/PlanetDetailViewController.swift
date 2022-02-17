@@ -8,22 +8,35 @@
 import UIKit
 
 class PlanetDetailViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        updateViews()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func updateViews() {
+        guard let planet = planet, isViewLoaded else { return }
+        planetNameLabel.text = planet.planetName
+        planetImageLabel.contentMode = .scaleAspectFit
+        planetImageLabel.image = UIImage(named: planet.planetImageName)
+        planetDiameterLabel.text = "Planet Diameter: \(planet.planetDiameter) KM"
+        planetDayLengthLabel.text = "Maximum Distance From Sun: \(planet.planetDayLength) KM"
+        maxMillionLabel.text = "Day Length in Earth Days: \(planet.maxMillionKMsFromSun) Days"
+        
     }
-    */
-
+    
+    var planet: Planet? {
+        didSet {
+            updateViews()
+        }
+    }
+    
+    @IBOutlet weak var planetNameLabel: UILabel!
+    @IBOutlet weak var planetImageLabel: UIImageView!
+    @IBOutlet weak var planetDiameterLabel: UILabel!
+    @IBOutlet weak var planetDayLengthLabel: UILabel!
+    @IBOutlet weak var maxMillionLabel: UILabel!
+    
+    
 }
